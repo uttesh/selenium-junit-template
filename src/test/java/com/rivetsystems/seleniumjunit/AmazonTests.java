@@ -34,6 +34,8 @@ public class AmazonTests {
 	@Before
 	public void setUp() {
 		driver = new FirefoxDriver();
+	        // for remote web drivers load umcomment below code
+    		//driver = getRemoteWebDriver();
 	}
 
 	@After
@@ -61,4 +63,15 @@ public class AmazonTests {
 			}
 		}
 	};
+	
+	private WebDriver getRemoteWebDriver(){
+            try {
+                DesiredCapabilities capability = DesiredCapabilities.internetExplorer();
+                driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capability);
+                return driver;
+            }catch (MalformedURLException ex) {
+                Logger.getLogger(AmazonTests.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null;
+        }
 }
